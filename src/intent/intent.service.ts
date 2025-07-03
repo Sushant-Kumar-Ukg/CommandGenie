@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { GenerativeModel, VertexAI } from '@google-cloud/vertexai';
 import { INTENT_PROMPT } from './constants';
-import { RedisService } from 'src/common/redis/redis.service';
+// import { RedisService } from 'src/common/redis/redis.service';
 import { GuardrailsService } from 'src/guardrails/guardrails.service';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class IntentService {
     model: process.env.VERTEX_MODEL || 'gemini-1.5-flash',
   });
   constructor(
-    private readonly redisService: RedisService,
+    // private readonly redisService: RedisService,
     private readonly guardrailsService: GuardrailsService,
   ) {}
 
@@ -43,12 +43,12 @@ export class IntentService {
     this.logger.log(`Detecting intents for text: "${text}"`);
     const today = new Date().toISOString().split('T')[0];
     const cacheKey = `intent-cache:${text.trim().toLowerCase()}`;
-    const cached =
-      await this.redisService.get<{ intent: string; params: any }[]>(cacheKey);
-    if (cached) {
-      this.logger.log(`Cache hit for key "${cacheKey}"`);
-      // return cached;
-    }
+    // const cached =
+    //   await this.redisService.get<{ intent: string; params: any }[]>(cacheKey);
+    // if (cached) {
+    //   this.logger.log(`Cache hit for key "${cacheKey}"`);
+    //   // return cached;
+    // }
     const req = {
       contents: [
         {
