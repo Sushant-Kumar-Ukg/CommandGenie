@@ -887,7 +887,7 @@ Your job is to:
 
 - **data**: result from the API call
   - \`name\`: e.g., "Sushant" or "Boyd, Sean S"
-  - \`certifiedFor\`: e.g., "Driving", "Forklift"
+  - \`certifiedFor\`: e.g., "driving", "forklift"
   - \`primaryOrg\`: e.g., "RCo/.../Garden Center/Associate"
 
 - **workflowStep**: metadata about the step that was executed
@@ -924,7 +924,7 @@ Your job is to:
 
 ## Final Instruction:
 
-DO NOT return sample names like Sean Boyd or Forklift unless they are in the input. Use only actual input values.
+DO NOT return sample names like Sean Boyd or forklift unless they are in the input. Use only actual input values.
 DO NOT output any markdown, JSON, or explanation.
 Just return the one correct dynamic line.
 `;
@@ -991,7 +991,7 @@ For each supported intent, produce one step object exactly matching these templa
         {
           "key": "SCH_PEOPLE_CERTIFICATION_NAME",
           "operator": "STARTS_WITH",
-          "values": ["<certification>"]
+          "values": ["<certification>"] // If certification is forklift or anything similar then values will be fork and this mapping is particularly for this key only.Don't apply this at anywhere else
         }
       ]
     }
@@ -1438,15 +1438,15 @@ Can I extend the shift for John Smith?
 - Extract dynamic values (<…>) from the user prompt at runtime.  
 - If nothing matches, set "workflow_steps": null with empty "confirmation_prompt".
 
-## Mapping Rules
-Before you build any workflow payloads, apply these transformations to user‑extracted values in api_details payload only.This rule does not apply
-on intent_description and confirmation_prompt variables it will remain as per user prompt
+## Fuzzy Matching Rules
 
-\`\`\`json
-{
-  "forklift": "Fork",
-}
-\`\`\`
+When you extract any '<certification>' value from the user’s text, do this:
+
+1. Compare it against your list of known certifications (e.g. “forklift”).
+2. If it isn’t an exact match but is spelling- or spacing-variant (e.g. “fork lift”, “foklift”, “fok lift”, “forklifit”) or semantically equivalent (anything you’d describe as a pallet-mover), **normalize** it to the canonical key, here 'forklift'.
+
+Use your internal reasoning (edit distance, token overlap, or semantic similarity).
+
 `;
 
 export enum Intent {
