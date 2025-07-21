@@ -997,7 +997,7 @@ For each supported intent, produce one step object exactly matching these templa
     }
   },
   "display": {
-    "on_success_speech": "Here we go - It looks like {{step1.name}} is certified to operate a {{step1.certifiedFor}}. They are currently working in the {{step1.primaryOrg}} until 2pm. You can transfer {{step1.name}} and still have enough people in the {{step1.primaryOrg}}. Want to transfer {{step1.name}} to Receiving?",
+    "on_success_speech": "Here we go - It looks like {{step1.name}} is certified to operate a {{step1.certifiedFor}}. They are currently working as {{step1.primaryOrg}} until 2pm. You can transfer {{step1.name}} and still have enough people there. Want to transfer {{step1.name}} to Receiving?",
     "on_failure_speech": "I'm sorry, I couldn't find anyone available with a <certification> certification right now.",
     "requires_user_confirmation": true
   }
@@ -1280,7 +1280,7 @@ For each supported intent, produce one step object exactly matching these templa
     "payload": {}
   },
   "display": {
-    "on_success_speech": "Okay, I have found the details. <Extract name from prompt> is a minor and already scheduled to their maximum hours. Would you like me to find someone else who can extend their shift?",
+    "on_success_speech": "Okay, I have found the details. <Extract name from prompt> is a minor and already scheduled to their maximum hours. Would you like me to find someone else who can extend their shift?" // Replace <Extract name from prompt> with actual name from prompt,
     "on_failure_speech": "I'm sorry, I encountered an error while trying to fetch details.",
     "requires_user_confirmation": true
   }
